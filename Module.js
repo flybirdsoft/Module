@@ -1,7 +1,7 @@
 /*
 
-Module is load javascript file
-write by wuweiwei(David)
+Module is for load javascript file and managerment javaScript module
+write by 邬畏畏(David)
 
 
 */
