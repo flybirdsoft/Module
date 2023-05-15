@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Module</title>
+	<style type="text/css">
+		.code{
+			background-color: #eee;
+			border-radius: 4px;
+			width:95%;
+			border:1px solid #;
+		}
+	</style>
+</head>
+<body>
+
+<div id="app">
+	<h1>This page is show <span style="color:#0c0">window.Module</span> how to work</h1>
+	<h2>Module.js 设计 & 研发 邬畏畏(wuweiwei)</h2>
+	<h2>Module.js 一款异步加载javaScript文件，并进行模块化管理的前端插件</h2>
+	<pre class="code">
+
+	javaScript文件加载：
+
+	window.Module.load(url,[name],[callback]);
+	window.Module.loadPromise(url).then(function(){
+		/*loaded*/
+	});
+
+	示例：
+	window.Module.load("./test.js",function(){
+		/*异步加载 js file*/
+		Person.run();
+	});
+
+	window.Module.loadPromise("./test2.js").then(function(){
+		/*异步加载 采用promise*/
+		Robot.run();
+	});
+
+	
+	模块管理：
+
+	myModule.js
+
+		var Product = {
+			show: function(){
+				alert("show your product");
+			}
+		}
+		window.Module.exports["Product"] = Product;
+
+	use:
+	let myModule = window.Module.import("Product");
+
+	</pre>
+	<button id="btn_1">call module</button>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript" src="./Module.js"></script>
+<script type="text/javascript">
+
+
+
+setTimeout(function(){
+	window.Module.load("./test.js",function(){
+		/*异步加载 js file*/
+		test();
+		Person.run();
+	});
+
+	window.Module.loadPromise("./test2.js").then(function(){
+		/*异步加载 采用promise*/
+		Robot.run();
+	});
+
+	window.Module.load("./myModule.js");
+
+},100);
+
+var btn_1 = document.querySelector("#btn_1");
+btn_1.onclick = function(){
+	let myModule = window.Module.import("Product"); // need "./jsModule.js" file code include window.Module.exports["Product"] = Product;
+	//import 参数 与 exports 参数相同
+	myModule.show();
+}
+</script>
